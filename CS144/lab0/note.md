@@ -10,7 +10,7 @@ Read [lab0 document](https://cs144.github.io/doc/lab0/index.html)
 ### Build Env
 
 ```bash
-git clone --recursive https://github.com/Kiprey/sponge.git
+git clone --recursive https://github.com/CS144/sponge.git
 mkdir -p sponge/build
 cd sponge/build
 CC=gcc CXX=g++ CLANG_TIDY=clang-tidy-15 CLANG_FORMAT=clang-format-15  cmake .. -DCMAKE_BUILD_TYPE=Debug
