@@ -85,9 +85,9 @@ A line is 4 byte.
 * Fragment Offset
 * TTL: Router will decrem TTL. If it is zero, router will drop this packet.
 * Protocol ID: which trasmission protrol
-* Checksu m
+* Checksum
 * Soucre IP Address
-* Destination
+* Destination IP Address
 * Option
 
 ## Some detail
