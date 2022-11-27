@@ -1,3 +1,6 @@
+---
+output: pdf_document
+---
 # Week-2 Transmission Layer
 
 ## UDP Model Service
@@ -81,7 +84,7 @@ The sliding window receiver
 
 Be careful for these:
 
-* Ack is a cumulative signal
+* Ack is a cumulative signal for receiver.
 * TCP acks are next expect data.
 
 And we should consider that how much sequence space we need.
@@ -90,6 +93,8 @@ And we should consider that how much sequence space we need.
 Answer: sequence number is used to represent the sequence of segment. A data can be divided to plenty of segments that is marked by sequence number in sequence(e.g, [0,1,2,..., end_seq]). A set of sequence number is called sequence space.
 * Considering the condition: SWS equals to a and RWS equals to b(We suppose that b le a). If sequence space is [0,..., y]. Sender have sent [0, ..., x-1] segments and been acknowlegdement. Then sender send [x, ..., y] and [0, ..., z] segments. Receiver receives them successfuly and it's next expects [z+1]. Unfortantly the acks [x+i, ..., y] and [0, ..., z] are missing, so send will resend [x + 1, ..., y], [0, ..., z] and send [z+1, ..., z+i]. Receive will accept [z+1, ..., z+i] expecting [z+1], then it will expect [z+i+1]. If number $x + 1 <= z + i + 1 <= y$, the thing gets a mess.
 * Generally we need SWS + RWS space.
+
+> sws = 2. sequence space = [0, 1 , 2]. send [0, 1] and get ack 1. Take care that ack 0 is retrad. again send [2] and [0]. send [0] is missing. But relaying ack 0 comes in. so send [1, 2]. but receiver expect [0]. dead loop. that is ok. loop will be broken while time out. they will close connect or reset. No data is wrong.
 
 #### Select Resend
 
