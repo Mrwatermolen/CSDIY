@@ -108,3 +108,15 @@ Conclusion: we need $\lambda <  \mu$
 ## How work
 
 ![How work](./assets/HowWork.png)
+
+![GenericPacketSwicth](./assets/GenericPacketSwicth.png)
+
+![EthernetSwitch](./assets/EthernetSwitch.png)
+
+![InternetRouter](./assets/InternetRouter.png)
+
+### Forwarding Table
+
+EthernetSwitch: hash table;
+
+InternetRouter: Longest prefix match. Tree or TCAM
