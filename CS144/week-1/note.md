@@ -2,7 +2,7 @@
 
 What we learn:
 
-* How an pplication use the Internet
+* How an application use the Internet
 * The structure of Internet: The 4 layer model
 * The Internet protocol
 * Basic architectual ideas and principles
@@ -99,8 +99,8 @@ simple present.
 three-way handshake
 
 c send s call: **syn**
-s send c call **syn ack**
-c send s call **ack**
+s send c call: **syn ack**
+c send s call: **ack**
 
 To open a TCP stream to anpther program we need: IP address, TCP port.
 
@@ -207,9 +207,9 @@ IP address means "this host" in internet layer, while an enthernet address mean 
 
 ![WhyNeedARP](./assets/WhyNeedARP.jpg)
 
-Consdiering: A want to send a packet to B. A know IP: 171.43.22.5 is in different network, so it need send the packet through the geteway. Then, the packet has a network layer destination 171.43.22 and a link layer destination 0:18:e7:f3:ce:la which is gateway, and alse has a network source and a link source. The gateway will drop the link data and put the IP packet inside a link layer frame to B.
+Consdiering: A want to send a packet to B. A know IP: 171.43.22.5 is in different network, so it need send the packet through the geteway. Then, the packet has a network layer destination 171.43.22.5 and a link layer destination 0:18:e7:f3:ce:la which is gateway, and also has a network source and a link source. The gateway will drop the link data and put the IP packet inside a link layer frame to B.
 
-This is the problem wanted to be solved by ARP.
+So how do we know who is the ***171.43.22.5***(it means MAC address)? This is the problem wanted to be solved by ARP.
 ![WhyNeedARP1](./assets/WhyNeedARP1.jpg)
 
 A client wants to send a packet to gateway(192.168.0.1), so how can it do to get a link layer address associated with gateway. We use ARP.

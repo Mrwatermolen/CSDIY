@@ -4,15 +4,15 @@ Implement the TCPSender.
 
 ## Pineline
 
-### 1. Initialiaze TCPSender
+### 1.Initialiaze TCPSender
 
 Upper service will initialiaze a `TCPSender` object. You should keep `TCPSender`state is closed.
 
-### 2. Send SYN
+### 2.Send SYN
 
 Upper service will call function `fill_window()` to ask `TCPSender` to generate a segment with SYN is true to send to `_segment_out`.
 
-### 3. Processing
+### 3.Processing
 
 #### ACK Recieved
 
@@ -31,11 +31,11 @@ You should check if `TCPSender` need to retransmit the earliest (lowest sequence
 
 More detail: [lab3-3.1 How does the TCPSender know if a segment was lost](./lab3.pdf)
 
-### 4. Send FIN
+### 4.Send FIN
 
 You can know whether `TCPSender` send the segment including FIN is true by check `_stream.eof()`
 
-### 5. ACK FIN
+### 5.ACK FIN
 
 You should promiss no byte is in flight.
 
