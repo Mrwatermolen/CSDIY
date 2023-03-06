@@ -120,3 +120,42 @@ Conclusion: we need $\lambda <  \mu$
 EthernetSwitch: hash table;
 
 InternetRouter: Longest prefix match. Tree or TCAM
+
+### Switch
+
+1. Output queued packet switch
+    Problem:如果有N个端口以速率R来到，在拥塞情况下，一个Buffer可能要承受(N+1)R读写速率。
+2. Input queued packet switch
+    每一个Buffer对应一个输入端口，所以即使在拥塞情况下，一个Buffer最多承受2R。会遇到Head of line blocking问题。解决Virtual output queues。
+
+![VirtualOutputQueues.png](./assets/VirtualOutputQueues.png)
+
+The property of Output queued packet switch:
+
+* They are "work conserving".
+* Throughput is maximized.
+* Expected delay is minimized.
+
+Which one we use
+
+The simplest and slowest is output queueing, which **minimizes packet delay**.
+
+The High performance switcher is input queueing, with virtual output queues to maximize throughput.
+
+### Strict priorities and guaranteed flow rate
+
+![FIFO](./assets/FIFO.png)
+
+When we have congestion, we'll see whoever sends at the highest rate, in fact, will receive the highest usage of link.
+
+![Strict priorities](./assets/StrictPriorities.png)
+
+it run the danger of stavring out low priority traffic when there are lots of high prioroty flow.
+
+![Weight priorities](./assets/WeightPriorities.png)
+
+![Summary.png](./assets/Summary.png)
+
+Delay guaranteed
+
+to be continued.

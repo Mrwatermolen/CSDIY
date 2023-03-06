@@ -10,9 +10,9 @@ Implement the TCPSConnect
 >
 > 3. Flag rst is ingored when the state of reciever is LISTEN.
 
-## FSM
+## TCP state transition
 
-![FSM](../week-2/assets/TCPState.png)
+![TCP state transition](../week-2/assets/TCPState.png)
 
 ## Pineline
 
@@ -24,7 +24,9 @@ There are two peers.
 ***Server***: passive open.
 
 Client === SYN ===> Server: Server's receiver has ack after this case.
+
 Server === SYN ACK ===> Client: Client's receiver has ack after this case.
+
 Client === ACK ===> Server: the TCP connect is established.
 
 ### TRANSFER
@@ -40,6 +42,7 @@ Peer A <=== ACK ===> Peer B
 There are two peers.
 
 ***Client***: active close.
+
 ***Server***: passive close. ( if the TCPConnection’s inbound stream ends before the TCPConnection has ever sent a fin segment, then the TCPConnection doesn’t need to linger after both streams finish.)
 
 Client === FIN ===> Server
