@@ -21,28 +21,30 @@ You will need to implement the following three components in your storage manage
 Read in preparation:
 [Extendible hashing WIKI](https://en.wikipedia.org/wiki/Extendible_hashing)
 
-For the first part of this project, you will build a general purpose hash table that uses unordered buckets to store unique key/value pairs.
+WIKI基本上告诉你怎么写了。一开始我还没搞懂`local_depth`和`gobal_depth`的区别。之后想明白了，就是树嘛。把每个桶看成一个叶子，`local_depth`是当前叶子的深度，`gobal_depth`就是树的深度，有一点点像字典树。
 
-You may not use another built-in hash table internally in your implementation. You must implement the following functions in the `ExtendibleHashTable` class:
-
-* `Find(K, V)`
-* `Insert(K, V)`: Insert the key/value pair into the hash table. If the key K already exists, overwrite its value with the new value V and return true. If the key/value pair couldn't be inserted into the bucket (because the bucket is full and the key is not updating an existing pair), do the following steps before retrying:
-    1. If the `local depth` of the bucket is equal to the `global depth`, increment the `global depth` and double the `size of the directory`.
-    2. Increment the local depth of the bucket.
-    3. Split the bucket and redistribute directory pointers & the kv pairs in the bucket.
-* `Remove(K)`
-* `GetGlobalDepth()`: Return the current global depth of the entire hash table.
-* `GetLocalDepth()`: Return the current local depth for the bucket which the given directory index points to.
-* `GetNumbuckets()`: Return the total number of buckets allocated in the hash table.
-
-You can make use of the provided IndexOf(K) private function to compute the the directory index that a given key hashes to. In addition, we provide a Bucket nested class that represents buckets in the extendible hash table. Finishing the TODOs of the Bucket class first by following the code documentation can make it easier for you to implement the ExtendibleHashTable APIs. But you can feel free to write your own internal class / helper functions.
-
-You need to make sure that all operations in the hash table are thread-safe using std::mutex. It is up to you to decide how you want to protect the data structure.
+这里有一个点Debug了很久，在线提交一直过不去。之前认为，分裂了一次之后再次重新分配就不会出问题了，其实不是的。重分配后仍然有可能需要继续分裂。比如考虑`bucket_size`=1, 先后插入键值为1000001和键值为0000001，要分裂6次才能放入。
 
 ## Task #2 - LRU-K Replacement Policy
 
-You are expected to implement only the LRU-K replacement policy. You don't have to implement LRU or clock replacement policy, even if there is a corresponding file for it.
+力扣练手[LRU 缓存](https://leetcode.cn/problems/lru-cache/)
 
-The LRU-K algorithm evicts a frame whose backward k-distance is maximum of all frames in the replacer. Backward k-distance is computed as the difference in time between current timestamp and the timestamp of kth previous access. A frame with less than k historical accesses is given +inf as its backward k-distance. When **multipe frames** have +inf backward k-distance, the replacer evicts the frame with the earliest timestamp.
+Backward k-distance is computed as the difference in time between current timestamp and the timestamp of kth previous access.
 
-The maximum size for the `LRUKReplacer` is the same as the size of the buffer pool since it contains placeholders for all of the frames in the `BufferPoolManager`. However, at any given moment not all the frames in the replacer are considered to be evictable. The size of `LRUKReplacer` is represented by the number of evictable frames. The `LRUKReplacer` is initialized to have no frames in it. Then, only when a frame is marked as evictable, replacer's size will increase.
+这里回退k次的距离：从最新的一次访问倒回去k-1次的访问的时间戳之差。比如k=2，帧fram1的访问历史时间[1,3,5,6]，对于帧fram1的backward k-distance为6-5=1
+
+ When multipe frames have +inf backward k-distance, the replacer evicts the frame with the earliest timestamp.
+
+这里+inf 驱逐的顺序是FIFO，与随后的访问无关，只关心第一次访问的时间戳。
+
+我的思路两个list和一个hash表
+
+## Task #3 - Buffer Pool Manager Instance
+
+看着注释基本上就可以了，但是细节多。`FetchPgImp`和`NewPgImp`都算一次Pin，一个页有Pin时，绝对不能被`LRUKReplacer`驱逐.
+
+## 线程安全
+
+加大锁🔒！！
+
+最后成绩200开外。

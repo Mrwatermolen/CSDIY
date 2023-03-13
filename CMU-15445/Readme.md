@@ -13,5 +13,5 @@
 
 |  Project 🎮   | Status 🧐  | Note 🗒️ |
 |  ----  | ----  | --- | --- |
-| C++ Primer | Pass | null |
-| Buffer Pool Manager  | Processing | [note](./Project/project%231.md) |
+| C++ Primer | Pass✅ | null |
+| Buffer Pool Manager  | Pass✅ | [note](./Project/project%231.md) |
